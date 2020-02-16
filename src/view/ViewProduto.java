@@ -7,6 +7,7 @@ package view;
 
 import controller.ControllerProdutos;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ModelProdutos;
 
@@ -15,9 +16,10 @@ import model.ModelProdutos;
  * @author geiba
  */
 public class ViewProduto extends javax.swing.JFrame {
-    
+
     ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>();
     ControllerProdutos controllerProdutos = new ControllerProdutos();
+    ModelProdutos modelProdutos = new ModelProdutos();
 
     /**
      * Creates new form newProduto
@@ -108,6 +110,7 @@ public class ViewProduto extends javax.swing.JFrame {
 
         jLabel5.setText("Pesquisar: ");
 
+        jBtPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Search-128(1).png"))); // NOI18N
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,15 +118,30 @@ public class ViewProduto extends javax.swing.JFrame {
             }
         });
 
+        jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Cancel2-256.png"))); // NOI18N
         jBtCancelar.setText("Cancelar");
 
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/New File-256.png"))); // NOI18N
         jBtNovo.setText("Novo");
 
+        jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Edit_128.png"))); // NOI18N
         jBtAlterar.setText("Alterar");
 
+        jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/delete-128.png"))); // NOI18N
         jBtExcluir.setText("Excluir");
+        jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirActionPerformed(evt);
+            }
+        });
 
+        jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Save_64.png"))); // NOI18N
         jBtSalvar.setText("Salvar");
+        jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -247,6 +265,29 @@ public class ViewProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTFCodigoActionPerformed
 
+    private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
+        modelProdutos.setProNome(this.jTFNome.getText());
+        modelProdutos.setProEstoque(Integer.parseInt(this.jTFEstoque.getText()));
+        modelProdutos.setProValor(Double.parseDouble(this.jTFValor.getText()));
+        if (controllerProdutos.salvrProdutosController(modelProdutos) > 0) {
+            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
+            this.carregarProdutos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto!");
+        }
+    }//GEN-LAST:event_jBtSalvarActionPerformed
+
+    private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
+        int linha = jTbProduto.getSelectedRow();
+        int codigoProduto = (int) jTbProduto.getValueAt(linha, 0);
+        if (controllerProdutos.excluirProdutoController(codigoProduto)) {
+            JOptionPane.showMessageDialog(this, "Produto excluido com sucesso!");
+            this.carregarProdutos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto!");
+        }
+    }//GEN-LAST:event_jBtExcluirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -283,22 +324,22 @@ public class ViewProduto extends javax.swing.JFrame {
         });
     }
 
-    private void carregarProdutos(){
+    private void carregarProdutos() {
         listaModelProdutos = controllerProdutos.retornarListaProdutoController();
         DefaultTableModel modelo = (DefaultTableModel) jTbProduto.getModel();
         modelo.setNumRows(0);
         int cont = listaModelProdutos.size();
         for (int i = 0; i < cont; i++) {
-            modelo.addRow(new Object [ ]{
-            listaModelProdutos.get(i).getIdProduto(),
-            listaModelProdutos.get(i).getProNome(),
-            listaModelProdutos.get(i).getProEstoque(),
-            listaModelProdutos.get(i).getProValor()                
-        });
-            
+            modelo.addRow(new Object[]{
+                listaModelProdutos.get(i).getIdProduto(),
+                listaModelProdutos.get(i).getProNome(),
+                listaModelProdutos.get(i).getProEstoque(),
+                listaModelProdutos.get(i).getProValor()
+            });
+
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtCancelar;

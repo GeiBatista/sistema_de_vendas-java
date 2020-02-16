@@ -24,14 +24,15 @@ public class DaoProdutos extends ConexaoMySql {
     public int salvarProdutosDAO(ModelProdutos pModelProdutos) {
         try {
             this.conectar();
-            return this.insertSQL(" INSERT INTO tblProduto ("
+            return this.insertSQL(" INSERT INTO tbl_produto ("
                     + "pro_nome,"
                     + "pro_valor,"
                     + "pro_estoque"
                     + ") VALUES  ("
                     + " ' " + pModelProdutos.getProNome() + " ',  "
                     + " ' " + pModelProdutos.getProValor() + " ',  "
-                    + " ' " + pModelProdutos.getProEstoque() + " ',  "
+                    + " ' " + pModelProdutos.getProEstoque() + " ' "
+                    + ");"
             );
         } catch (Exception e) {
             e.printStackTrace();
@@ -126,7 +127,7 @@ public class DaoProdutos extends ConexaoMySql {
             this.conectar();
             this.executarSQL("SELECT "
                     + "pk_id_produto, "
-                    + "pro_produto, "
+                    + "pro_nome, "
                     + "pro_valor, "
                     + "pro_estoque "
                     + "FROM tbl_produto;");
