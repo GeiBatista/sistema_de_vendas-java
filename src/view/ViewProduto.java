@@ -8,7 +8,10 @@ package view;
 import controller.ControllerProdutos;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import model.ModelProdutos;
 
 /**
@@ -20,6 +23,7 @@ public class ViewProduto extends javax.swing.JFrame {
     ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>();
     ControllerProdutos controllerProdutos = new ControllerProdutos();
     ModelProdutos modelProdutos = new ModelProdutos();
+    String salvarAlterar;
 
     /**
      * Creates new form newProduto
@@ -27,7 +31,8 @@ public class ViewProduto extends javax.swing.JFrame {
     public ViewProduto() {
         initComponents();
         carregarProdutos();
-        setLocationRelativeTo(this);
+        setLocationRelativeTo(null);
+        habilitaDesabilitaCampos(false);
     }
 
     /**
@@ -46,8 +51,6 @@ public class ViewProduto extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTFCodigo = new javax.swing.JTextField();
         jTFNome = new javax.swing.JTextField();
-        jTFEstoque = new javax.swing.JTextField();
-        jTFValor = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbProduto = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
@@ -59,8 +62,11 @@ public class ViewProduto extends javax.swing.JFrame {
         jBtAlterar = new javax.swing.JButton();
         jBtExcluir = new javax.swing.JButton();
         jBtSalvar = new javax.swing.JButton();
+        jTFEstoque = new javax.swing.JFormattedTextField();
+        jTFValor = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Produtos");
 
         jLabel1.setText("Código: ");
 
@@ -70,6 +76,8 @@ public class ViewProduto extends javax.swing.JFrame {
 
         jLabel4.setText("Valor:");
 
+        jTFCodigo.setEditable(false);
+        jTFCodigo.setEnabled(false);
         jTFCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTFCodigoActionPerformed(evt);
@@ -110,6 +118,12 @@ public class ViewProduto extends javax.swing.JFrame {
 
         jLabel5.setText("Pesquisar: ");
 
+        jTFPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFPesquisarActionPerformed(evt);
+            }
+        });
+
         jBtPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Search-128(1).png"))); // NOI18N
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -120,12 +134,27 @@ public class ViewProduto extends javax.swing.JFrame {
 
         jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Cancel2-256.png"))); // NOI18N
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarActionPerformed(evt);
+            }
+        });
 
         jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/New File-256.png"))); // NOI18N
         jBtNovo.setText("Novo");
+        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovoActionPerformed(evt);
+            }
+        });
 
         jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Edit_128.png"))); // NOI18N
         jBtAlterar.setText("Alterar");
+        jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarActionPerformed(evt);
+            }
+        });
 
         jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/delete-128.png"))); // NOI18N
         jBtExcluir.setText("Excluir");
@@ -171,6 +200,10 @@ public class ViewProduto extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTFEstoque.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+
+        jTFValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -180,17 +213,17 @@ public class ViewProduto extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTFEstoque, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                                .addComponent(jTFCodigo, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(jLabel3))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTFCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                            .addComponent(jLabel3)
+                            .addComponent(jTFEstoque))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTFNome)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTFValor, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(3, 3, 3)
+                                .addComponent(jTFValor, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jTFNome)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jBtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -258,7 +291,11 @@ public class ViewProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
-        // TODO add your handling code here:
+         DefaultTableModel modelo = (DefaultTableModel)this.jTbProduto.getModel();
+        final TableRowSorter<TableModel> classificador = new TableRowSorter<>(modelo);
+        this.jTbProduto.setRowSorter(classificador);
+        String texto = jTFPesquisar.getText();
+        classificador.setRowFilter(RowFilter.regexFilter(texto, 1));
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
     private void jTFCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFCodigoActionPerformed
@@ -266,27 +303,55 @@ public class ViewProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFCodigoActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
-        modelProdutos.setProNome(this.jTFNome.getText());
-        modelProdutos.setProEstoque(Integer.parseInt(this.jTFEstoque.getText()));
-        modelProdutos.setProValor(Double.parseDouble(this.jTFValor.getText()));
-        if (controllerProdutos.salvrProdutosController(modelProdutos) > 0) {
-            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
-            this.carregarProdutos();
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto!");
-        }
+     if(salvarAlterar.equals("salvar"))
+        this.salvarProduto();
+     else  if(salvarAlterar.equals("alterar"))
+       this.alterarProduto();
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         int linha = jTbProduto.getSelectedRow();
         int codigoProduto = (int) jTbProduto.getValueAt(linha, 0);
         if (controllerProdutos.excluirProdutoController(codigoProduto)) {
-            JOptionPane.showMessageDialog(this, "Produto excluido com sucesso!");
+            JOptionPane.showMessageDialog(this, "Produto excluido com sucesso!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
             this.carregarProdutos();
+            this.habilitaDesabilitaCampos(false);
         } else {
-            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto!");
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto!",  "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
+
+    private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
+        habilitaDesabilitaCampos(true);
+        salvarAlterar = "salvar";
+    }//GEN-LAST:event_jBtNovoActionPerformed
+
+    private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
+        this.habilitaDesabilitaCampos(false);
+       this. limparCampos();
+    }//GEN-LAST:event_jBtCancelarActionPerformed
+
+    private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
+        salvarAlterar = "alterar";
+        habilitaDesabilitaCampos(true);
+        int linha = this.jTbProduto.getSelectedRow();
+        try {
+        int codigoProduto = (int) jTbProduto.getValueAt(linha, 0);
+            //recuperar dados do banco
+            modelProdutos = controllerProdutos.retonarProdutoController(codigoProduto);
+            //setar na interface
+            this.jTFCodigo.setText(String.valueOf(modelProdutos.getIdProduto()));
+            this.jTFNome.setText(modelProdutos.getProNome());
+            this.jTFEstoque.setText(String.valueOf(modelProdutos.getProEstoque()));
+            this.jTFValor.setText(String.valueOf(modelProdutos.getProValor()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Código inválido ou nenhum registro selecionado!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtAlterarActionPerformed
+
+    private void jTFPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFPesquisarActionPerformed
+      
+    }//GEN-LAST:event_jTFPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -323,7 +388,51 @@ public class ViewProduto extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    private void salvarProduto(){
+         modelProdutos.setProNome(this.jTFNome.getText());
+        modelProdutos.setProEstoque(Integer.parseInt(this.jTFEstoque.getText()));
+        modelProdutos.setProValor(Double.parseDouble(this.jTFValor.getText()));
+        if (controllerProdutos.salvrProdutosController(modelProdutos) > 0) {
+            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
+            this.carregarProdutos();
+           this. limparCampos();
+           this.habilitaDesabilitaCampos(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void alterarProduto(){
+          modelProdutos.setProNome(this.jTFNome.getText());
+        modelProdutos.setProEstoque(Integer.parseInt(this.jTFEstoque.getText()));
+        modelProdutos.setProValor(Double.parseDouble(this.jTFValor.getText()));
+        if (controllerProdutos.alterarProdutoController(modelProdutos)) {
+            JOptionPane.showMessageDialog(this, "Produto alterado com sucesso!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
+            this.carregarProdutos();
+           this. limparCampos();
+           this.habilitaDesabilitaCampos(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao alterar o produto!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    /**
+     * habilita e desabilita os campos do formulário
+     * @param condicao 
+     */
+    private void habilitaDesabilitaCampos(boolean condicao)
+    {
+        jTFNome.setEnabled(condicao);
+        jTFEstoque.setEnabled(condicao);
+        jTFValor.setEnabled(condicao);
+    }
+    
+    private void limparCampos(){
+        jTFNome.setText(" ");
+        jTFEstoque.setText(" ");
+        jTFValor.setText(" ");     
+    }
+    
     private void carregarProdutos() {
         listaModelProdutos = controllerProdutos.retornarListaProdutoController();
         DefaultTableModel modelo = (DefaultTableModel) jTbProduto.getModel();
@@ -356,10 +465,10 @@ public class ViewProduto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFCodigo;
-    private javax.swing.JTextField jTFEstoque;
+    private javax.swing.JFormattedTextField jTFEstoque;
     private javax.swing.JTextField jTFNome;
     private javax.swing.JTextField jTFPesquisar;
-    private javax.swing.JTextField jTFValor;
+    private javax.swing.JFormattedTextField jTFValor;
     private javax.swing.JTable jTbProduto;
     // End of variables declaration//GEN-END:variables
 }

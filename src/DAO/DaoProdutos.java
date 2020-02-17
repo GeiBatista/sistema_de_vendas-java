@@ -96,7 +96,7 @@ public class DaoProdutos extends ConexaoMySql {
         ModelProdutos modelProdutos = new ModelProdutos();
         try {
             this.conectar();
-            this.executarSQL("SELECT"
+            this.executarSQL("SELECT "
                     + "pk_id_produto, "
                     + "pro_nome, "
                     + "pro_valor, "
