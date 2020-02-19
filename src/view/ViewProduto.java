@@ -429,6 +429,7 @@ public class ViewProduto extends javax.swing.JFrame {
         jTFNome.setEnabled(condicao);
         jTFEstoque.setEnabled(condicao);
         jTFValor.setEnabled(condicao);
+        jBtSalvar.setEnabled(condicao);
     }
 
     private void limparCampos() {

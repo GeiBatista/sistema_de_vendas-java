@@ -29,6 +29,8 @@ public class ViewCliente extends javax.swing.JFrame {
         initComponents();
         carregarCliente();
         setLocationRelativeTo(null);
+        this.desabilitaHabilitaCampos(false);
+        this.limparCampos();
     }
 
     /**
@@ -52,7 +54,6 @@ public class ViewCliente extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTFCidade = new javax.swing.JTextField();
         jCBEstados = new javax.swing.JComboBox<>();
-        jTFCep = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -65,10 +66,15 @@ public class ViewCliente extends javax.swing.JFrame {
         jBAlterar = new javax.swing.JButton();
         jBSalvar = new javax.swing.JButton();
         jBtExcluir = new javax.swing.JButton();
+        jTFCep = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Clientes");
 
         jLabel1.setText("Código:");
+
+        jTFCodigo.setEditable(false);
+        jTFCodigo.setEnabled(false);
 
         jLabel2.setText("Nome:");
 
@@ -82,12 +88,6 @@ public class ViewCliente extends javax.swing.JFrame {
         jCBEstados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBEstadosActionPerformed(evt);
-            }
-        });
-
-        jTFCep.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFCepActionPerformed(evt);
             }
         });
 
@@ -194,6 +194,12 @@ public class ViewCliente extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        try {
+            jTFCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -229,12 +235,12 @@ public class ViewCliente extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
-                                    .addComponent(jTFCep, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTFCep, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(36, 36, 36)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
-                                .addGap(0, 92, Short.MAX_VALUE))
+                                .addGap(0, 86, Short.MAX_VALUE))
                             .addComponent(jTFTelefone)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jTFEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -272,8 +278,8 @@ public class ViewCliente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCBEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -301,12 +307,10 @@ public class ViewCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCBEstadosActionPerformed
 
-    private void jTFCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFCepActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTFCepActionPerformed
-
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
         // TODO add your handling code here:
+        this.desabilitaHabilitaCampos(false);
+        this.limparCampos();
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
@@ -324,6 +328,7 @@ public class ViewCliente extends javax.swing.JFrame {
         jCBEstados.setSelectedItem(modelCliente.getCliUf());
         jTFCep.setText(modelCliente.getCliCep());
         jTFTelefone.setText(modelCliente.getCliTelefone());
+        this.desabilitaHabilitaCampos(true);
 
     }//GEN-LAST:event_jBAlterarActionPerformed
 
@@ -341,12 +346,14 @@ public class ViewCliente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Registro salvo com sucesso!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
                 //carregar os clientes na tabela
                 carregarCliente();
+                this.desabilitaHabilitaCampos(false);
+                this.limparCampos();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao salvar o registro!", "ERRO", JOptionPane.ERROR_MESSAGE);
             }
-        }else{
+        } else {
             modelCliente.setIdCliente(Integer.parseInt(this.jTFCodigo.getText()));
-                   modelCliente.setCliNome(this.jTFNome.getText());
+            modelCliente.setCliNome(this.jTFNome.getText());
             modelCliente.setCliEndereco(this.jTFEndereco.getText());
             modelCliente.setCliBairro(this.jTFBairro.getText());
             modelCliente.setCliCidade(this.jTFCidade.getText());
@@ -358,6 +365,8 @@ public class ViewCliente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Registro salvo com sucesso!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
                 //carregar os clientes na tabela
                 carregarCliente();
+                this.desabilitaHabilitaCampos(false);
+                this.limparCampos();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao salvar o registro!", "ERRO", JOptionPane.ERROR_MESSAGE);
             }
@@ -378,8 +387,32 @@ public class ViewCliente extends javax.swing.JFrame {
 
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
         // TODO add your handling code here:
+        this.desabilitaHabilitaCampos(true);
+        this.limparCampos();
         salvarAlterar = "salvar";
     }//GEN-LAST:event_jBNovoActionPerformed
+
+    // Habilita ou desabilita campo e botoes
+    private void desabilitaHabilitaCampos(boolean condicao) {
+        jTFNome.setEnabled(condicao);
+        jTFEndereco.setEnabled(condicao);
+        jTFBairro.setEnabled(condicao);
+        jTFCidade.setEnabled(condicao);
+        jCBEstados.setEnabled(condicao);
+        jTFCep.setEnabled(condicao);
+        jTFTelefone.setEnabled(condicao);
+        jBSalvar.setEnabled(condicao);
+    }
+
+    // limpar campos do formulário
+    private void limparCampos() {
+        jTFNome.setText(" ");
+        jTFEndereco.setText(" ");
+        jTFBairro.setText(" ");
+        jTFCidade.setText(" ");
+        jTFCep.setText(" ");
+        jTFTelefone.setText(" ");
+    }
 
     private void carregarCliente() {
         listaModelClientes = controllerCliente.getListaClienteController();
@@ -451,7 +484,7 @@ public class ViewCliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTCliente;
     private javax.swing.JTextField jTFBairro;
-    private javax.swing.JTextField jTFCep;
+    private javax.swing.JFormattedTextField jTFCep;
     private javax.swing.JTextField jTFCidade;
     private javax.swing.JTextField jTFCodigo;
     private javax.swing.JTextField jTFEndereco;
