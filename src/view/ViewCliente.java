@@ -5,17 +5,30 @@
  */
 package view;
 
+import controller.ControllerCliente;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.ModelCliente;
+
 /**
  *
  * @author geiba
  */
 public class ViewCliente extends javax.swing.JFrame {
 
+    ControllerCliente controllerCliente = new ControllerCliente();
+    ModelCliente modelCliente = new ModelCliente();
+    ArrayList<ModelCliente> listaModelClientes = new ArrayList<>();
+    String salvarAlterar;
+
     /**
      * Creates new form ViewCliente
      */
     public ViewCliente() {
         initComponents();
+        carregarCliente();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -51,6 +64,7 @@ public class ViewCliente extends javax.swing.JFrame {
         jBNovo = new javax.swing.JButton();
         jBAlterar = new javax.swing.JButton();
         jBSalvar = new javax.swing.JButton();
+        jBtExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,10 +99,7 @@ public class ViewCliente extends javax.swing.JFrame {
 
         jTCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Cliente", "Cidade", "Telefone"
@@ -115,6 +126,7 @@ public class ViewCliente extends javax.swing.JFrame {
             jTCliente.getColumnModel().getColumn(0).setPreferredWidth(20);
         }
 
+        jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Cancel2-256.png"))); // NOI18N
         jBCancelar.setText("Cancelar");
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,8 +134,15 @@ public class ViewCliente extends javax.swing.JFrame {
             }
         });
 
+        jBNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/new_page-128.png"))); // NOI18N
         jBNovo.setText("Novo");
+        jBNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNovoActionPerformed(evt);
+            }
+        });
 
+        jBAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Edit_128.png"))); // NOI18N
         jBAlterar.setText("Alterar");
         jBAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,7 +150,21 @@ public class ViewCliente extends javax.swing.JFrame {
             }
         });
 
+        jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Save_64.png"))); // NOI18N
         jBSalvar.setText("Salvar");
+        jBSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalvarActionPerformed(evt);
+            }
+        });
+
+        jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/delete-128.png"))); // NOI18N
+        jBtExcluir.setText("Excluir");
+        jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPBotoesClienteLayout = new javax.swing.GroupLayout(jPBotoesCliente);
         jPBotoesCliente.setLayout(jPBotoesClienteLayout);
@@ -144,8 +177,9 @@ public class ViewCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBAlterar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBSalvar)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jBtExcluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBSalvar))
         );
         jPBotoesClienteLayout.setVerticalGroup(
             jPBotoesClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +189,8 @@ public class ViewCliente extends javax.swing.JFrame {
                     .addComponent(jBCancelar)
                     .addComponent(jBNovo)
                     .addComponent(jBAlterar)
-                    .addComponent(jBSalvar))
+                    .addComponent(jBSalvar)
+                    .addComponent(jBtExcluir))
                 .addContainerGap())
         );
 
@@ -276,7 +311,90 @@ public class ViewCliente extends javax.swing.JFrame {
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
         // TODO add your handling code here:
+        int linha = jTCliente.getSelectedRow();
+        int codigoCliente = (int) jTCliente.getValueAt(linha, 0);
+        salvarAlterar = "alterar";
+
+        modelCliente = controllerCliente.getClienteController(codigoCliente);
+        jTFCodigo.setText(String.valueOf(modelCliente.getIdCliente()));
+        jTFNome.setText(modelCliente.getCliNome());
+        jTFEndereco.setText(modelCliente.getCliEndereco());
+        jTFBairro.setText(modelCliente.getCliBairro());
+        jTFCidade.setText(modelCliente.getCliBairro());
+        jCBEstados.setSelectedItem(modelCliente.getCliUf());
+        jTFCep.setText(modelCliente.getCliCep());
+        jTFTelefone.setText(modelCliente.getCliTelefone());
+
     }//GEN-LAST:event_jBAlterarActionPerformed
+
+    private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
+        if (salvarAlterar.equals("salvar")) {
+            modelCliente.setCliNome(this.jTFNome.getText());
+            modelCliente.setCliEndereco(this.jTFEndereco.getText());
+            modelCliente.setCliBairro(this.jTFBairro.getText());
+            modelCliente.setCliCidade(this.jTFCidade.getText());
+            modelCliente.setCliUf(this.jCBEstados.getSelectedItem().toString());
+            modelCliente.setCliCep(this.jTFCep.getText());
+            modelCliente.setCliTelefone(this.jTFTelefone.getText());
+
+            if (controllerCliente.salvarClienteController(modelCliente) > 0) {
+                JOptionPane.showMessageDialog(this, "Registro salvo com sucesso!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
+                //carregar os clientes na tabela
+                carregarCliente();
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao salvar o registro!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        }else{
+            modelCliente.setIdCliente(Integer.parseInt(this.jTFCodigo.getText()));
+                   modelCliente.setCliNome(this.jTFNome.getText());
+            modelCliente.setCliEndereco(this.jTFEndereco.getText());
+            modelCliente.setCliBairro(this.jTFBairro.getText());
+            modelCliente.setCliCidade(this.jTFCidade.getText());
+            modelCliente.setCliUf(this.jCBEstados.getSelectedItem().toString());
+            modelCliente.setCliCep(this.jTFCep.getText());
+            modelCliente.setCliTelefone(this.jTFTelefone.getText());
+
+            if (controllerCliente.atualizarClienteController(modelCliente)) {
+                JOptionPane.showMessageDialog(this, "Registro salvo com sucesso!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
+                //carregar os clientes na tabela
+                carregarCliente();
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao salvar o registro!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jBSalvarActionPerformed
+
+    private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
+        // TODO add your handling code here:
+        int linha = jTCliente.getSelectedRow();
+        int codigoCliente = (int) jTCliente.getValueAt(linha, 0);
+        if (controllerCliente.excluirClienteController(codigoCliente)) {
+            JOptionPane.showMessageDialog(this, "Registro Excluido com sucesso!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
+            this.carregarCliente();
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao Excluir o registro!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtExcluirActionPerformed
+
+    private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
+        // TODO add your handling code here:
+        salvarAlterar = "salvar";
+    }//GEN-LAST:event_jBNovoActionPerformed
+
+    private void carregarCliente() {
+        listaModelClientes = controllerCliente.getListaClienteController();
+        DefaultTableModel modelo = (DefaultTableModel) jTCliente.getModel(); // criar tabela
+        modelo.setNumRows(0); //remove linhas para não duplicar
+        int cont = listaModelClientes.size();
+        for (int i = 0; i < cont; i++) {
+            modelo.addRow(new Object[]{
+                listaModelClientes.get(i).getIdCliente(),
+                listaModelClientes.get(i).getCliNome(),
+                listaModelClientes.get(i).getCliCidade(),
+                listaModelClientes.get(i).getCliTelefone()
+            });
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -318,6 +436,7 @@ public class ViewCliente extends javax.swing.JFrame {
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBNovo;
     private javax.swing.JButton jBSalvar;
+    private javax.swing.JButton jBtExcluir;
     private javax.swing.JComboBox<String> jCBEstados;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
