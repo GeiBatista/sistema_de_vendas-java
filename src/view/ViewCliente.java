@@ -333,15 +333,21 @@ public class ViewCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
-        if (salvarAlterar.equals("salvar")) {
-            modelCliente.setCliNome(this.jTFNome.getText());
-            modelCliente.setCliEndereco(this.jTFEndereco.getText());
-            modelCliente.setCliBairro(this.jTFBairro.getText());
-            modelCliente.setCliCidade(this.jTFCidade.getText());
-            modelCliente.setCliUf(this.jCBEstados.getSelectedItem().toString());
-            modelCliente.setCliCep(this.jTFCep.getText());
-            modelCliente.setCliTelefone(this.jTFTelefone.getText());
 
+        try {
+            modelCliente.setIdCliente(Integer.parseInt(this.jTFCodigo.getText()));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        modelCliente.setCliNome(this.jTFNome.getText());
+        modelCliente.setCliEndereco(this.jTFEndereco.getText());
+        modelCliente.setCliBairro(this.jTFBairro.getText());
+        modelCliente.setCliCidade(this.jTFCidade.getText());
+        modelCliente.setCliUf(this.jCBEstados.getSelectedItem().toString());
+        modelCliente.setCliCep(this.jTFCep.getText());
+        modelCliente.setCliTelefone(this.jTFTelefone.getText());
+
+        if (salvarAlterar.equals("salvar")) {
             if (controllerCliente.salvarClienteController(modelCliente) > 0) {
                 JOptionPane.showMessageDialog(this, "Registro salvo com sucesso!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
                 //carregar os clientes na tabela
@@ -352,23 +358,14 @@ public class ViewCliente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Erro ao salvar o registro!", "ERRO", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            modelCliente.setIdCliente(Integer.parseInt(this.jTFCodigo.getText()));
-            modelCliente.setCliNome(this.jTFNome.getText());
-            modelCliente.setCliEndereco(this.jTFEndereco.getText());
-            modelCliente.setCliBairro(this.jTFBairro.getText());
-            modelCliente.setCliCidade(this.jTFCidade.getText());
-            modelCliente.setCliUf(this.jCBEstados.getSelectedItem().toString());
-            modelCliente.setCliCep(this.jTFCep.getText());
-            modelCliente.setCliTelefone(this.jTFTelefone.getText());
-
             if (controllerCliente.atualizarClienteController(modelCliente)) {
-                JOptionPane.showMessageDialog(this, "Registro salvo com sucesso!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Registro alterado com sucesso!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
                 //carregar os clientes na tabela
                 carregarCliente();
                 this.desabilitaHabilitaCampos(false);
                 this.limparCampos();
             } else {
-                JOptionPane.showMessageDialog(this, "Erro ao salvar o registro!", "ERRO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Erro ao alterar o registro!", "ERRO", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jBSalvarActionPerformed
