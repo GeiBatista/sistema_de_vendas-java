@@ -54,7 +54,7 @@ public class DAOVendas extends ConexaoMySql {
             this.conectar();
             this.executarSQL(
                     "SELECT "
-                    + "pk_id_venda,"
+                    + "pk_id_vendas,"
                     + "fk_cliente,"
                     + "ven_data_venda,"
                     + "ven_valor_liquido,"
@@ -63,7 +63,7 @@ public class DAOVendas extends ConexaoMySql {
                     + " FROM"
                     + " tbl_vendas"
                     + " WHERE"
-                    + " pk_id_venda = '" + pIdVenda + "'"
+                    + " pk_id_vendas = '" + pIdVenda + "'"
                     + ";"
             );
 
@@ -95,7 +95,7 @@ public class DAOVendas extends ConexaoMySql {
             this.conectar();
             this.executarSQL(
                     "SELECT "
-                    + "pk_id_venda,"
+                    + "pk_id_vendas,"
                     + "fk_cliente,"
                     + "ven_data_venda,"
                     + "ven_valor_liquido,"
@@ -135,14 +135,14 @@ public class DAOVendas extends ConexaoMySql {
             this.conectar();
             return this.executarUpdateDeleteSQL(
                     "UPDATE tbl_vendas SET "
-                    + "pk_id_venda = '" + pModelVendas.getIdVenda() + "',"
+                    + "pk_id_vendas = '" + pModelVendas.getIdVenda() + "',"
                     + "fk_cliente = '" + pModelVendas.getCliente() + "',"
                     + "ven_data_venda = '" + pModelVendas.getVenDataVenda() + "',"
                     + "ven_valor_liquido = '" + pModelVendas.getVenValorLiquido() + "',"
                     + "ven_valor_bruto = '" + pModelVendas.getVenValorBruto() + "',"
                     + "ven_desconto = '" + pModelVendas.getVenDesconto() + "'"
                     + " WHERE "
-                    + "pk_id_venda = '" + pModelVendas.getIdVenda() + "'"
+                    + "pk_id_vendas = '" + pModelVendas.getIdVenda() + "'"
                     + ";"
             );
         } catch (Exception e) {
@@ -165,7 +165,7 @@ public class DAOVendas extends ConexaoMySql {
             return this.executarUpdateDeleteSQL(
                     "DELETE FROM tbl_vendas "
                     + " WHERE "
-                    + "pk_id_venda = '" + pIdVenda + "'"
+                    + "pk_id_vendas = '" + pIdVenda + "'"
                     + ";"
             );
         } catch (Exception e) {

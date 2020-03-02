@@ -158,9 +158,37 @@ public class DAOVendasProdutos extends ConexaoMySql {
             return this.executarUpdateDeleteSQL(
                     "DELETE FROM tbl_vendas_produtos "
                     + " WHERE "
-                    + "pk_id_venda_produto = '" + pIdVendaProduto + "'"
+                    + "fk_vendas = '" + pIdVendaProduto + "'"
                     + ";"
             );
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.fecharConexao();
+        }
+    }
+
+    public boolean salvarVendasProdutosDAO(ArrayList<ModelVendasProdutos> pListaModelVendasProdutos) {
+        try {
+            this.conectar();
+            int cont = pListaModelVendasProdutos.size();
+            for (int i = 0; i < cont; i++) {
+                this.insertSQL(
+                        "INSERT INTO tbl_vendas_produtos ("
+                        + "fk_vendas,"
+                        + "fk_produto,"
+                        + "ven_pro_valor,"
+                        + "ven_pro_quantidade"
+                        + ") VALUES ("
+                        + "'" + pListaModelVendasProdutos.get(i) .getVendas()+ "',"
+                        + "'" + pListaModelVendasProdutos.get(i) .getProduto()+ "',"
+                        + "'" + pListaModelVendasProdutos.get(i) .getVenProValor()+ "',"
+                        + "'" + pListaModelVendasProdutos.get(i) .getVenProQuantidade() + "'"
+                        + ");"
+                );
+            }
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;

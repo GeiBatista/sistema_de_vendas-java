@@ -173,8 +173,8 @@
                   <Table columnCount="4" rowCount="4">
                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Integer"/>
                     <Column editable="false" title="Nome" type="java.lang.String"/>
-                    <Column editable="true" title="Quantidade" type="java.lang.Integer"/>
-                    <Column editable="true" title="Valor" type="java.lang.Double"/>
+                    <Column editable="false" title="Quantidade" type="java.lang.Integer"/>
+                    <Column editable="false" title="Valor" type="java.lang.Double"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

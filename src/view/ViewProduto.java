@@ -5,14 +5,14 @@
  */
 package view;
 
-import controller.ControllerProdutos;
+import controller.ControllerProduto;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import model.ModelProdutos;
+import model.ModelProduto;
 import util.Formatador;
 
 /**
@@ -21,9 +21,9 @@ import util.Formatador;
  */
 public class ViewProduto extends javax.swing.JFrame {
 
-    ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>();
-    ControllerProdutos controllerProdutos = new ControllerProdutos();
-    ModelProdutos modelProdutos = new ModelProdutos();
+    ArrayList<ModelProduto> listaModelProdutos = new ArrayList<>();
+    ControllerProduto controllerProdutos = new ControllerProduto();
+    ModelProduto modelProdutos = new ModelProduto();
     Formatador formatador = new Formatador();
     String salvarAlterar;
 
@@ -101,7 +101,7 @@ public class ViewProduto extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -341,7 +341,7 @@ public class ViewProduto extends javax.swing.JFrame {
         try {
             int codigoProduto = (int) jTbProduto.getValueAt(linha, 0);
             //recuperar dados do banco
-            modelProdutos = controllerProdutos.retonarProdutoController(codigoProduto);
+            modelProdutos = controllerProdutos.getProdutoController(codigoProduto);
             //setar na interface
             this.jTFCodigo.setText(String.valueOf(modelProdutos.getIdProduto()));
             this.jTFNome.setText(modelProdutos.getProNome());
@@ -396,7 +396,7 @@ public class ViewProduto extends javax.swing.JFrame {
         modelProdutos.setProNome(this.jTFNome.getText());
         modelProdutos.setProEstoque(Integer.parseInt(this.jTFEstoque.getText()));
         modelProdutos.setProValor(formatador.converterVirgulaParaPonto(this.jTFValor.getText()));
-        if (controllerProdutos.salvrProdutosController(modelProdutos) > 0) {
+        if (controllerProdutos.salvarProdutoController(modelProdutos) > 0) {
             JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
             this.carregarProdutos();
             this.limparCampos();
@@ -410,7 +410,7 @@ public class ViewProduto extends javax.swing.JFrame {
         modelProdutos.setProNome(this.jTFNome.getText());
         modelProdutos.setProEstoque(Integer.parseInt(this.jTFEstoque.getText()));
         modelProdutos.setProValor(formatador.converterVirgulaParaPonto(this.jTFValor.getText()));
-        if (controllerProdutos.alterarProdutoController(modelProdutos)) {
+        if (controllerProdutos.atualizarProdutoController(modelProdutos)) {
             JOptionPane.showMessageDialog(this, "Produto alterado com sucesso!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
             this.carregarProdutos();
             this.limparCampos();
@@ -439,7 +439,7 @@ public class ViewProduto extends javax.swing.JFrame {
     }
 
     private void carregarProdutos() {
-        listaModelProdutos = controllerProdutos.retornarListaProdutoController();
+        listaModelProdutos = controllerProdutos.getListaProdutoController();
         DefaultTableModel modelo = (DefaultTableModel) jTbProduto.getModel();
         modelo.setNumRows(0);
         int cont = listaModelProdutos.size();
