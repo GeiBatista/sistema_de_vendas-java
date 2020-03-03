@@ -32,6 +32,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         uJPanelImagem1 = new componentes.UJPanelImagem();
+        jPanel1 = new javax.swing.JPanel();
+        jBtClientes = new javax.swing.JButton();
+        jBtProdutos = new javax.swing.JButton();
+        jBtVendas = new javax.swing.JButton();
+        jBtUsuarios = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMArquivos = new javax.swing.JMenu();
         jMISair = new javax.swing.JMenuItem();
@@ -40,21 +45,87 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jMIProdutos = new javax.swing.JMenuItem();
         jMIUsuarios = new javax.swing.JMenuItem();
         jMVendas = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Vendas GBS - Sistema de Vendas com Controle de Estoque");
 
         uJPanelImagem1.setImagem(new java.io.File("D:\\Imagens\\Fundos de Tela\\IMG_5157.JPG"));
 
+        jBtClientes.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jBtClientes.setText("Clientes");
+        jBtClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtClientesActionPerformed(evt);
+            }
+        });
+
+        jBtProdutos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jBtProdutos.setText("Produtos");
+        jBtProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtProdutosActionPerformed(evt);
+            }
+        });
+
+        jBtVendas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jBtVendas.setText("Vendas");
+        jBtVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtVendasActionPerformed(evt);
+            }
+        });
+
+        jBtUsuarios.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jBtUsuarios.setText("Usuários");
+        jBtUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtUsuariosActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                    .addComponent(jBtVendas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtClientes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtProdutos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtVendas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtUsuarios)
+                .addContainerGap(309, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout uJPanelImagem1Layout = new javax.swing.GroupLayout(uJPanelImagem1);
         uJPanelImagem1.setLayout(uJPanelImagem1Layout);
         uJPanelImagem1Layout.setHorizontalGroup(
             uJPanelImagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 791, Short.MAX_VALUE)
+            .addGroup(uJPanelImagem1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(645, Short.MAX_VALUE))
         );
         uJPanelImagem1Layout.setVerticalGroup(
             uJPanelImagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 475, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, uJPanelImagem1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jMArquivos.setText("Arquivos");
@@ -99,6 +170,15 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMCadastros);
 
         jMVendas.setText("Vendas");
+
+        jMenuItem1.setText("Vendas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMVendas.add(jMenuItem1);
+
         jMenuBar1.add(jMVendas);
 
         setJMenuBar(jMenuBar1);
@@ -143,6 +223,31 @@ public class ViewPrincipal extends javax.swing.JFrame {
         new ViewUsuario().setVisible(true);
     }//GEN-LAST:event_jMIUsuariosActionPerformed
 
+    private void jBtProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProdutosActionPerformed
+        // TODO add your handling code here:
+        new ViewProduto().setVisible(true);
+    }//GEN-LAST:event_jBtProdutosActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        new ViewVendas().setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jBtClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtClientesActionPerformed
+        // TODO add your handling code here:
+        new ViewCliente().setVisible(true);
+    }//GEN-LAST:event_jBtClientesActionPerformed
+
+    private void jBtVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtVendasActionPerformed
+        // TODO add your handling code here:
+        new ViewVendas().setVisible(true);
+    }//GEN-LAST:event_jBtVendasActionPerformed
+
+    private void jBtUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtUsuariosActionPerformed
+        // TODO add your handling code here:
+        new ViewUsuario().setVisible(true);
+    }//GEN-LAST:event_jBtUsuariosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -179,6 +284,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtClientes;
+    private javax.swing.JButton jBtProdutos;
+    private javax.swing.JButton jBtUsuarios;
+    private javax.swing.JButton jBtVendas;
     private javax.swing.JMenu jMArquivos;
     private javax.swing.JMenu jMCadastros;
     private javax.swing.JMenuItem jMIClientes;
@@ -187,6 +296,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMIUsuarios;
     private javax.swing.JMenu jMVendas;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPanel1;
     private componentes.UJPanelImagem uJPanelImagem1;
     // End of variables declaration//GEN-END:variables
 }
