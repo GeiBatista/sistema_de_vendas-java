@@ -37,6 +37,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jBtProdutos = new javax.swing.JButton();
         jBtVendas = new javax.swing.JButton();
         jBtUsuarios = new javax.swing.JButton();
+        jBtPDV = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMArquivos = new javax.swing.JMenu();
         jMISair = new javax.swing.JMenuItem();
@@ -84,6 +85,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jBtPDV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jBtPDV.setText("PDV");
+        jBtPDV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPDVActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -94,7 +103,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
                     .addComponent(jBtProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                     .addComponent(jBtVendas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jBtClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtPDV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -108,7 +118,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addComponent(jBtVendas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtUsuarios)
-                .addContainerGap(309, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtPDV)
+                .addContainerGap(275, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout uJPanelImagem1Layout = new javax.swing.GroupLayout(uJPanelImagem1);
@@ -248,6 +260,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         new ViewUsuario().setVisible(true);
     }//GEN-LAST:event_jBtUsuariosActionPerformed
 
+    private void jBtPDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPDVActionPerformed
+        // TODO add your handling code here:
+        new ViewPDV().setVisible(true);
+    }//GEN-LAST:event_jBtPDVActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -285,6 +302,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtClientes;
+    private javax.swing.JButton jBtPDV;
     private javax.swing.JButton jBtProdutos;
     private javax.swing.JButton jBtUsuarios;
     private javax.swing.JButton jBtVendas;
