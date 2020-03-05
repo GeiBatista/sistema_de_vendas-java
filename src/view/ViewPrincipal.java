@@ -51,7 +51,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Vendas GBS - Sistema de Vendas com Controle de Estoque");
 
-        uJPanelImagem1.setImagem(new java.io.File("D:\\Imagens\\Fundos de Tela\\IMG_5157.JPG"));
+        uJPanelImagem1.setImagem(new java.io.File("D:\\Imagens\\Fundos de Tela\\466215-PFWXTD-739.jpg"));
+
+        jPanel1.setBackground(new java.awt.Color(102, 0, 0));
 
         jBtClientes.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jBtClientes.setText("Clientes");

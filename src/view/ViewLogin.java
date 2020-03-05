@@ -8,6 +8,7 @@ package view;
 
 import controller.ControllerUsuario;
 import javax.swing.JOptionPane;
+import model.ModelSessaoUsuario;
 import model.ModelUsuario;
 
 /**
@@ -18,6 +19,7 @@ public class ViewLogin extends javax.swing.JFrame {
     
     ControllerUsuario controllerUsuario = new ControllerUsuario();
     ModelUsuario modelUsuario = new ModelUsuario();
+    ModelSessaoUsuario modelSessaoUsuario = new ModelSessaoUsuario();
 
     /** Creates new form ViewLogin */
     public ViewLogin() {
@@ -166,9 +168,12 @@ public class ViewLogin extends javax.swing.JFrame {
     private void jBtEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEntrarActionPerformed
         // TODO add your handling code here:
         modelUsuario.setUsuLogin(jTFUsuarioLogin.getText());
-        modelUsuario.setUsuSenha(String.valueOf(jPSWSenha.getPassword()));
-       
+        modelUsuario.setUsuSenha(String.valueOf(jPSWSenha.getPassword()));        
         if(controllerUsuario.getValidarUsuarioController(modelUsuario)) {
+           modelUsuario = controllerUsuario.getUsuarioController(jTFUsuarioLogin.getText());
+           modelSessaoUsuario.codigo = modelUsuario.getIdUsuario();
+           modelSessaoUsuario.nome = modelUsuario.getUsuNome();
+           modelSessaoUsuario.login = modelUsuario.getUsuLogin();
             new ViewPrincipal().setVisible(true);
         }else{
             JOptionPane.showMessageDialog(this, "Usuário/Senha inválida!", "ERRO", JOptionPane.ERROR_MESSAGE);

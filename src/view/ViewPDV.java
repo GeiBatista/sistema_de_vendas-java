@@ -6,8 +6,18 @@
 package view;
 
 import controller.ControllerProduto;
+import controller.ControllerVendas;
+import controller.ControllerVendasProdutos;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ModelProduto;
+import model.ModelSessaoUsuario;
+import model.ModelVendas;
+import model.ModelVendasProdutos;
+import util.BLDatas;
 
 /**
  *
@@ -15,9 +25,17 @@ import model.ModelProduto;
  */
 public class ViewPDV extends javax.swing.JFrame {
 
-    int item = 0;
-    ControllerProduto controllerProdutos = new controller.ControllerProduto();
+    ControllerProduto controllerProdutos = new ControllerProduto();
     ModelProduto modelProdutos = new ModelProduto();
+    ModelVendas modelVendas = new ModelVendas();
+    ArrayList<ModelProduto> listaModelProdutos = new ArrayList<>();
+    ModelVendasProdutos modelVendasProdutos = new ModelVendasProdutos();
+    ArrayList<ModelVendasProdutos> listaModelVendasProdutoses = new ArrayList<>();
+    BLDatas blDatas = new BLDatas();
+    ControllerVendas controllerVendas = new ControllerVendas();
+    ControllerVendasProdutos controllerVendasProdutos = new ControllerVendasProdutos();
+    ModelSessaoUsuario modelSessaoUsuario = new ModelSessaoUsuario();
+    int quantidade;
 
     /**
      * Creates new form ViewPDV
@@ -25,6 +43,8 @@ public class ViewPDV extends javax.swing.JFrame {
     public ViewPDV() {
         initComponents();
         setLocationRelativeTo(null);
+        quantidade = 1;
+        setarOperador();
     }
 
     /**
@@ -42,7 +62,7 @@ public class ViewPDV extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jLOperador = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         uJPanelImagem4 = new componentes.UJPanelImagem();
@@ -59,14 +79,13 @@ public class ViewPDV extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbProdutoPDV = new javax.swing.JTable();
-        uJPanelImagem2 = new componentes.UJPanelImagem();
         jTfCodigoProduto = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMItemAddQuantidade = new javax.swing.JMenuItem();
+        jMIFinalizarVenda = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -79,7 +98,7 @@ public class ViewPDV extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel4.setText("Operador:");
 
-        jLabel7.setText("jLabel7");
+        jLOperador.setText("Operador");
 
         jLabel8.setText("jLabel8");
 
@@ -93,19 +112,20 @@ public class ViewPDV extends javax.swing.JFrame {
             .addGroup(uJPanelImagem3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(uJPanelImagem3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLOperador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(uJPanelImagem3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6))
-                    .addGroup(uJPanelImagem3Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7))
-                    .addGroup(uJPanelImagem3Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                        .addGroup(uJPanelImagem3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(uJPanelImagem3Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6))
+                            .addComponent(jLabel4)
+                            .addGroup(uJPanelImagem3Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8)))
+                        .addGap(0, 73, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         uJPanelImagem3Layout.setVerticalGroup(
             uJPanelImagem3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,10 +135,10 @@ public class ViewPDV extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(uJPanelImagem3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLOperador)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(uJPanelImagem3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel8))
@@ -145,15 +165,12 @@ public class ViewPDV extends javax.swing.JFrame {
 
         jLabel13.setText("F5 Pesquisar Produtos");
 
-        jLabel14.setText("F9 Sair");
+        jLabel14.setText("F6 Sair");
 
         javax.swing.GroupLayout uJPanelImagem4Layout = new javax.swing.GroupLayout(uJPanelImagem4);
         uJPanelImagem4.setLayout(uJPanelImagem4Layout);
         uJPanelImagem4Layout.setHorizontalGroup(
             uJPanelImagem4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(uJPanelImagem4Layout.createSequentialGroup()
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
             .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(uJPanelImagem4Layout.createSequentialGroup()
                 .addContainerGap()
@@ -167,6 +184,9 @@ public class ViewPDV extends javax.swing.JFrame {
                             .addComponent(jLabel14))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(uJPanelImagem4Layout.createSequentialGroup()
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
         uJPanelImagem4Layout.setVerticalGroup(
             uJPanelImagem4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,7 +225,7 @@ public class ViewPDV extends javax.swing.JFrame {
                 .addComponent(uJPanelImagem3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(uJPanelImagem4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -274,38 +294,29 @@ public class ViewPDV extends javax.swing.JFrame {
             jTbProdutoPDV.getColumnModel().getColumn(5).setMaxWidth(80);
         }
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
         jTfCodigoProduto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTfCodigoProdutoKeyReleased(evt);
             }
         });
 
-        javax.swing.GroupLayout uJPanelImagem2Layout = new javax.swing.GroupLayout(uJPanelImagem2);
-        uJPanelImagem2.setLayout(uJPanelImagem2Layout);
-        uJPanelImagem2Layout.setHorizontalGroup(
-            uJPanelImagem2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTfCodigoProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTfCodigoProduto)
+                    .addComponent(jScrollPane1))
+                .addGap(15, 15, 15))
         );
-        uJPanelImagem2Layout.setVerticalGroup(
-            uJPanelImagem2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, uJPanelImagem2Layout.createSequentialGroup()
-                .addComponent(jTfCodigoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
+                .addComponent(jTfCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -315,14 +326,14 @@ public class ViewPDV extends javax.swing.JFrame {
             uJPanelImagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(uJPanelImagem1Layout.createSequentialGroup()
                 .addGroup(uJPanelImagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(uJPanelImagem1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(uJPanelImagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(uJPanelImagem2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(3, 3, 3)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE))
+                    .addGroup(uJPanelImagem1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(3, 3, 3)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         uJPanelImagem1Layout.setVerticalGroup(
@@ -331,38 +342,41 @@ public class ViewPDV extends javax.swing.JFrame {
             .addGroup(uJPanelImagem1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(uJPanelImagem2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Arquivo");
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
         jMenuItem1.setText("Sair");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Comandos");
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
-        jMenuItem2.setText("Alterar quantidade");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMItemAddQuantidade.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        jMItemAddQuantidade.setText("Alterar quantidade");
+        jMItemAddQuantidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMItemAddQuantidadeActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(jMItemAddQuantidade);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
-        jMenuItem3.setText("Finalizar Venda");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMIFinalizarVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
+        jMIFinalizarVenda.setText("Finalizar Venda");
+        jMIFinalizarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMIFinalizarVendaActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenu2.add(jMIFinalizarVenda);
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
         jMenuItem4.setText("Pesquisar Produtos");
@@ -391,13 +405,58 @@ public class ViewPDV extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMItemAddQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMItemAddQuantidadeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+        quantidade = Integer.parseInt(JOptionPane.showInputDialog("Informe a Quantidade!"));
+                
+    }//GEN-LAST:event_jMItemAddQuantidadeActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jMIFinalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIFinalizarVendaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+        int cont;
+        int codigoProduto = 0, codigoVenda = 0;
+        modelVendas = new ModelVendas();
+        modelVendas.setCliente(1);
+        try {
+            modelVendas.setVenDataVenda(blDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
+        } catch (Exception ex) {
+            Logger.getLogger(ViewPDV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        modelVendas.setVenValorBruto(Double.parseDouble(jTFValorTotal.getText()));
+        modelVendas.setVenDesconto(0);
+        modelVendas.setVenValorLiquido(Double.parseDouble(jTFValorTotal.getText()));
+        
+        //Salvar venda;
+        codigoVenda = controllerVendas.salvarVendasController(modelVendas);
+
+        cont = jTbProdutoPDV.getRowCount();
+        for (int i = 0; i < cont; i++) {
+            codigoProduto = (int) jTbProdutoPDV.getValueAt(i, 1);
+            modelVendasProdutos = new ModelVendasProdutos();
+            modelProdutos = new ModelProduto();
+            modelVendasProdutos.setProduto(codigoProduto);
+            modelVendasProdutos.setVendas(codigoVenda);
+            modelVendasProdutos.setVenProValor((double) jTbProdutoPDV.getValueAt(i, 4));
+            modelVendasProdutos.setVenProQuantidade(Integer.parseInt(jTbProdutoPDV.getValueAt(i, 3).toString()));
+            //produto
+            modelProdutos.setIdProduto(codigoProduto);
+            modelProdutos.setProEstoque(controllerProdutos.getProdutoController(codigoProduto).getProEstoque()
+                    - Integer.parseInt(jTbProdutoPDV.getValueAt(i, 3).toString()));
+            listaModelVendasProdutoses.add(modelVendasProdutos);
+            listaModelProdutos.add(modelProdutos);
+        }
+
+        //salvar os produtos da venda
+        if (controllerVendasProdutos.salvarVendasProdutosController(listaModelVendasProdutoses)) {
+            //Alterar estoque de produtos;
+            controllerProdutos.atualizarEstoqueProdutoController(listaModelProdutos);
+           JOptionPane.showMessageDialog(this, "Produtos da venda  Salvo(s)!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
+          
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar produto da  venda", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jMIFinalizarVendaActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
@@ -412,22 +471,26 @@ public class ViewPDV extends javax.swing.JFrame {
         pegarConteudo(evt);
     }//GEN-LAST:event_jTfCodigoProdutoKeyReleased
 
-    private void pegarConteudo(java.awt.event.KeyEvent e) {
-        int quantidade = 1;
-        DefaultTableModel modelo = (DefaultTableModel) jTbProdutoPDV.getModel();
-        if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            item = modelo.getRowCount() + 1;
-            modelProdutos = controllerProdutos.getProdutoController(Integer.parseInt(jTfCodigoProduto.getText()));
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-            modelo.addRow(new Object[]{
-                item,
+    private void pegarConteudo(java.awt.event.KeyEvent e) {
+              DefaultTableModel modelo = (DefaultTableModel) jTbProdutoPDV.getModel();
+        if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            modelProdutos = controllerProdutos.getProdutoController(Integer.parseInt(jTfCodigoProduto.getText()));
+            modelo.addRow(new Object[ ]{
+                modelo.getRowCount() + 1,
                 modelProdutos.getIdProduto(),
                 modelProdutos.getProNome(),
                 quantidade,
                 modelProdutos.getProValor(),
                 modelProdutos.getProValor() * quantidade
             });
-           jTFValorTotal.setText(String.valueOf(somaValorTotal()));
+            jTFValorTotal.setText(String.valueOf(somaValorTotal()));
+            jTfCodigoProduto.setText("");
+         quantidade = 1;
         }
     }
 
@@ -475,8 +538,13 @@ public class ViewPDV extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void setarOperador(){
+        jLOperador.setText(modelSessaoUsuario.login);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLOperador;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -488,15 +556,14 @@ public class ViewPDV extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMIFinalizarVenda;
+    private javax.swing.JMenuItem jMItemAddQuantidade;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -506,7 +573,6 @@ public class ViewPDV extends javax.swing.JFrame {
     private javax.swing.JTable jTbProdutoPDV;
     private javax.swing.JTextField jTfCodigoProduto;
     private componentes.UJPanelImagem uJPanelImagem1;
-    private componentes.UJPanelImagem uJPanelImagem2;
     private componentes.UJPanelImagem uJPanelImagem3;
     private componentes.UJPanelImagem uJPanelImagem4;
     // End of variables declaration//GEN-END:variables
