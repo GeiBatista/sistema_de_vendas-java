@@ -168,16 +168,16 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jBtClientes" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtClientes" linkSize="1" min="-2" pref="64" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jBtProdutos" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtProdutos" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jBtVendas" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtVendas" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jBtUsuarios" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtUsuarios" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jBtPDV" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="275" max="32767" attributes="0"/>
+                      <Component id="jBtPDV" linkSize="1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="100" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

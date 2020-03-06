@@ -168,7 +168,8 @@ public class ViewLogin extends javax.swing.JFrame {
     private void jBtEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEntrarActionPerformed
         // TODO add your handling code here:
         modelUsuario.setUsuLogin(jTFUsuarioLogin.getText());
-        modelUsuario.setUsuSenha(String.valueOf(jPSWSenha.getPassword()));        
+        modelUsuario.setUsuSenha(String.valueOf(jPSWSenha.getPassword()));  
+        
         if(controllerUsuario.getValidarUsuarioController(modelUsuario)) {
            modelUsuario = controllerUsuario.getUsuarioController(jTFUsuarioLogin.getText());
            modelSessaoUsuario.codigo = modelUsuario.getIdUsuario();
