@@ -14,9 +14,15 @@ import model.ModelFormaPagamento;
  * @author geiba
  */
 public class ViewPagamentoPDV extends javax.swing.JDialog {
-    ArrayList<ModelFormaPagamento>listaModelFormaPagamento = new ArrayList<>();
-    ControllerFormaPagamento controllerFormaPagamento = new ControllerFormaPagamento();
 
+    ArrayList<ModelFormaPagamento> listaModelFormaPagamento = new ArrayList<>();
+    ControllerFormaPagamento controllerFormaPagamento = new ControllerFormaPagamento();
+    private float valorTotal;
+    private float desconto;
+    private float valorRecebido;
+    private float troco;
+    private String formaPagamento;
+    private boolean pago;
 
     /**
      * Creates new form ViewPagamentoPDV
@@ -25,6 +31,10 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         listarFormaPagamento();
+        setLocationRelativeTo(null);
+        this.pago = false;
+        calcularPagamento();
+
     }
 
     /**
@@ -41,15 +51,15 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jFTFSubTotal = new javax.swing.JFormattedTextField();
         jCBPagamento = new javax.swing.JComboBox<>();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
-        jFormattedTextField3 = new javax.swing.JFormattedTextField();
+        jFTFDesconto = new javax.swing.JFormattedTextField();
+        jFTFValorRecebido = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        jLValorTotal = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jTFTroco = new javax.swing.JTextField();
+        jBtOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -65,44 +75,69 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel4.setText("Valor Recebido:");
 
-        jFormattedTextField1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jFTFSubTotal.setEditable(false);
+        jFTFSubTotal.setEnabled(false);
+        jFTFSubTotal.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jFTFSubTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField1ActionPerformed(evt);
+                jFTFSubTotalActionPerformed(evt);
             }
         });
 
         jCBPagamento.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jCBPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jFormattedTextField2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jFTFDesconto.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jFTFDesconto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jFTFDescontoFocusLost(evt);
+            }
+        });
+        jFTFDesconto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFTFDescontoActionPerformed(evt);
+            }
+        });
 
-        jFormattedTextField3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jFTFValorRecebido.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jFTFValorRecebido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFTFValorRecebidoActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Valor Total a Pagar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
 
-        jLabel5.setText("jLabel5");
+        jLValorTotal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLValorTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLValorTotal.setText("0");
+        jLValorTotal.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(183, 183, 183)
-                .addComponent(jLabel5)
+                .addGap(113, 113, 113)
+                .addComponent(jLValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel5)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jLabel6.setText("Troco:");
 
-        jButton1.setText("OK");
+        jBtOk.setText("OK");
+        jBtOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtOkActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -120,23 +155,23 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField3))
+                                .addComponent(jFTFValorRecebido))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jFormattedTextField1)
-                                    .addComponent(jFormattedTextField2)))
+                                    .addComponent(jFTFSubTotal)
+                                    .addComponent(jFTFDesconto)))
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTFTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jBtOk, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -149,22 +184,22 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFTFSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFTFDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFTFValorRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jTFTroco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtOk))
                 .addGap(24, 24, 24))
         );
 
@@ -182,9 +217,35 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+    private void jFTFSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFTFSubTotalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+    }//GEN-LAST:event_jFTFSubTotalActionPerformed
+
+    private void jBtOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtOkActionPerformed
+        // TODO add your handling code here:
+        this.desconto = Float.parseFloat(this.jFTFDesconto.getText());
+        this.valorRecebido = Float.parseFloat(this.jFTFValorRecebido.getText());
+        this.troco = Float.parseFloat(this.jTFTroco.getText());
+        this.valorTotal = Float.parseFloat(this.jLValorTotal.getText());
+        this.formaPagamento = jCBPagamento.getSelectedItem().toString();
+        this.pago = true;
+        dispose();
+    }//GEN-LAST:event_jBtOkActionPerformed
+
+    private void jFTFDescontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFDescontoFocusLost
+        // TODO add your handling code here:
+        calcularPagamento();
+    }//GEN-LAST:event_jFTFDescontoFocusLost
+
+    private void jFTFDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFTFDescontoActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jFTFDescontoActionPerformed
+
+    private void jFTFValorRecebidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFTFValorRecebidoActionPerformed
+        // TODO add your handling code here:
+        calcularPagamento();
+    }//GEN-LAST:event_jFTFValorRecebidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,32 +288,143 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
             }
         });
     }
-    
+
+    /**
+     * Calcula o valor total a pagar e o troco
+     */
+    private void calcularPagamento() {
+        float subTotal, desconto, recebido, pagar, troco;
+
+        try {
+            subTotal = Float.parseFloat(jFTFSubTotal.getText());
+        } catch (Exception e) {
+            subTotal = 0;
+        }
+        try {
+            desconto = Float.parseFloat(jFTFDesconto.getText());
+        } catch (Exception e) {
+            desconto = 0;
+        }
+        try {
+            recebido = Float.parseFloat(jFTFValorRecebido.getText());
+        } catch (Exception e) {
+            recebido = 0;
+        }
+
+        //Calcular valor a pagar
+        pagar = subTotal - desconto;
+        jLValorTotal.setText(pagar + "");
+        //Calcular troco
+        troco = recebido - pagar;
+        jTFTroco.setText(troco + "");
+    }
+
     /**
      * Preenche combobox com todas as formas de pagamento
      */
-    private void listarFormaPagamento(){
-       listaModelFormaPagamento = controllerFormaPagamento.getListaFormaPagamentoController();
-       jCBPagamento.removeAllItems();
-        for (int i = 0; i < listaModelFormaPagamento.size() ; i++) {
-           jCBPagamento.addItem(listaModelFormaPagamento.get(i).getForPagDescricao());
+    private void listarFormaPagamento() {
+        listaModelFormaPagamento = controllerFormaPagamento.getListaFormaPagamentoController();
+        jCBPagamento.removeAllItems();
+        for (int i = 0; i < listaModelFormaPagamento.size(); i++) {
+            jCBPagamento.addItem(listaModelFormaPagamento.get(i).getForPagDescricao());
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBtOk;
     private javax.swing.JComboBox<String> jCBPagamento;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
-    private javax.swing.JFormattedTextField jFormattedTextField3;
+    private javax.swing.JFormattedTextField jFTFDesconto;
+    private javax.swing.JFormattedTextField jFTFSubTotal;
+    private javax.swing.JFormattedTextField jFTFValorRecebido;
+    private javax.swing.JLabel jLValorTotal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTFTroco;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the desconto
+     */
+    public float getDesconto() {
+        return desconto;
+    }
+
+    /**
+     * @return the valorRecebido
+     */
+    public float getValorRecebido() {
+        return valorRecebido;
+    }
+
+    /**
+     * @param valorRecebido the valorRecebido to set
+     */
+    public void setValorRecebido(float valorRecebido) {
+        this.valorRecebido = valorRecebido;
+    }
+
+    /**
+     * @return the troco
+     */
+    public float getTroco() {
+        return troco;
+    }
+
+    /**
+     * @param troco the troco to set
+     */
+    public void setTroco(float troco) {
+        this.troco = troco;
+    }
+
+    /**
+     * @return the formaPagamento
+     */
+    public String getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    /**
+     * @param formaPagamento the formaPagamento to set
+     */
+    public void setFormaPagamento(String formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+
+    /**
+     * @return the valorTotal
+     */
+    public float getValorTotal() {
+        return valorTotal;
+    }
+
+    /**
+     * @param valorTotal the valorTotal to set
+     */
+    public void setValorTotal(float valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public void setTextFieldValoTotal() {
+        this.jFTFSubTotal.setText(this.valorTotal + " ");
+    }
+
+    /**
+     * @return the pago
+     */
+    public boolean isPago() {
+        return pago;
+    }
+
+    /**
+     * @param pago the pago to set
+     */
+    public void setPago(boolean pago) {
+        this.pago = pago;
+    }
 }
