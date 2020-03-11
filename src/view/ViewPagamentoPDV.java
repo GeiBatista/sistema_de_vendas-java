@@ -8,6 +8,7 @@ package view;
 import controller.ControllerFormaPagamento;
 import java.util.ArrayList;
 import model.ModelFormaPagamento;
+import util.BLMascaras;
 
 /**
  *
@@ -17,6 +18,7 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
 
     ArrayList<ModelFormaPagamento> listaModelFormaPagamento = new ArrayList<>();
     ControllerFormaPagamento controllerFormaPagamento = new ControllerFormaPagamento();
+    BLMascaras blm = new BLMascaras();
     private float valorTotal;
     private float desconto;
     private float valorRecebido;
@@ -34,6 +36,7 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         this.pago = false;
         calcularPagamento();
+        limparCampos();
 
     }
 
@@ -86,6 +89,11 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
 
         jCBPagamento.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jCBPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCBPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBPagamentoActionPerformed(evt);
+            }
+        });
 
         jFTFDesconto.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jFTFDesconto.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -223,29 +231,42 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
 
     private void jBtOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtOkActionPerformed
         // TODO add your handling code here:
-        this.desconto = Float.parseFloat(this.jFTFDesconto.getText());
+     finalizaPagamento();
+    }//GEN-LAST:event_jBtOkActionPerformed
+
+    public void finalizaPagamento(){
+           this.desconto = Float.parseFloat(this.jFTFDesconto.getText());
         this.valorRecebido = Float.parseFloat(this.jFTFValorRecebido.getText());
         this.troco = Float.parseFloat(this.jTFTroco.getText());
         this.valorTotal = Float.parseFloat(this.jLValorTotal.getText());
         this.formaPagamento = jCBPagamento.getSelectedItem().toString();
         this.pago = true;
         dispose();
-    }//GEN-LAST:event_jBtOkActionPerformed
-
+    }
+    
     private void jFTFDescontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFDescontoFocusLost
         // TODO add your handling code here:
+        jFTFDesconto.setText(blm.converterVirgulaParaPonto(jFTFDesconto.getText()));
         calcularPagamento();
     }//GEN-LAST:event_jFTFDescontoFocusLost
 
     private void jFTFDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFTFDescontoActionPerformed
         // TODO add your handling code here:
-
+        jFTFValorRecebido.requestFocus();
+        
     }//GEN-LAST:event_jFTFDescontoActionPerformed
 
     private void jFTFValorRecebidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFTFValorRecebidoActionPerformed
         // TODO add your handling code here:
+        jFTFValorRecebido.setText(blm.converterVirgulaParaPonto(jFTFValorRecebido.getText()));
         calcularPagamento();
+        finalizaPagamento();
     }//GEN-LAST:event_jFTFValorRecebidoActionPerformed
+
+    private void jCBPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBPagamentoActionPerformed
+        // TODO add your handling code here:
+        jFTFDesconto.requestFocus();
+    }//GEN-LAST:event_jCBPagamentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -304,19 +325,21 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
             desconto = Float.parseFloat(jFTFDesconto.getText());
         } catch (Exception e) {
             desconto = 0;
+            jFTFDesconto.setText("0");
         }
         try {
             recebido = Float.parseFloat(jFTFValorRecebido.getText());
         } catch (Exception e) {
             recebido = 0;
+            jFTFValorRecebido.setText("");
         }
 
         //Calcular valor a pagar
         pagar = subTotal - desconto;
-        jLValorTotal.setText(pagar + "");
+        jLValorTotal.setText(blm.arredondamentoComPontoDuasCasasString(pagar));
         //Calcular troco
         troco = recebido - pagar;
-        jTFTroco.setText(troco + "");
+        jTFTroco.setText(blm.arredondamentoComPontoDuasCasasString(troco));
     }
 
     /**
@@ -328,6 +351,11 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         for (int i = 0; i < listaModelFormaPagamento.size(); i++) {
             jCBPagamento.addItem(listaModelFormaPagamento.get(i).getForPagDescricao());
         }
+    }
+    
+    private void limparCampos(){
+        jFTFDesconto.setText("0");
+        jFTFValorRecebido.setText("0");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

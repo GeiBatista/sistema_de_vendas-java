@@ -46,8 +46,8 @@ public class ViewPDV extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         quantidade = 1;
         setarOperador();
-        this.viewPagamentoPDV = new ViewPagamentoPDV(this, true);
         jTfCodigoProduto.requestFocus();
+        limparTela();
     }
 
     /**
@@ -66,7 +66,7 @@ public class ViewPDV extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLOperador = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jLStatus = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         uJPanelImagem4 = new componentes.UJPanelImagem();
         jLabel9 = new javax.swing.JLabel();
@@ -99,14 +99,14 @@ public class ViewPDV extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setText("Caixa:");
 
-        jLabel6.setText("jLabel6");
+        jLabel6.setText("01]");
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel4.setText("Operador:");
 
         jLOperador.setText("Operador");
 
-        jLabel8.setText("jLabel8");
+        jLStatus.setText("jLabel8");
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel5.setText("Status:");
@@ -129,7 +129,7 @@ public class ViewPDV extends javax.swing.JFrame {
                     .addGroup(uJPanelImagem3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         uJPanelImagem3Layout.setVerticalGroup(
@@ -146,7 +146,7 @@ public class ViewPDV extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addGroup(uJPanelImagem3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel8))
+                    .addComponent(jLStatus))
                 .addGap(5, 5, 5))
         );
 
@@ -439,15 +439,18 @@ public class ViewPDV extends javax.swing.JFrame {
 
     private void jMIFinalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIFinalizarVendaActionPerformed
         // TODO add your handling code here:
-        viewPagamentoPDV.setValorTotal(Float.parseFloat(jTFValorBruto.getText()));
-        viewPagamentoPDV.setTextFieldValoTotal();
-        viewPagamentoPDV.setVisible(true);
+        try {
+            this.viewPagamentoPDV = new ViewPagamentoPDV(this, true);
+            viewPagamentoPDV.setValorTotal(Float.parseFloat(jTFValorBruto.getText()));
+            viewPagamentoPDV.setTextFieldValoTotal();
+            viewPagamentoPDV.setVisible(true);
 
-        System.out.println(viewPagamentoPDV.getFormaPagamento());
-        if (viewPagamentoPDV.isPago()) {
-            salvarVenda();
-        } else {
-            JOptionPane.showMessageDialog(this, "Pagamento cancelado");
+            System.out.println(viewPagamentoPDV.getFormaPagamento());
+            if (viewPagamentoPDV.isPago()) {
+                salvarVenda();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(jMenu1, "Você deve incluir um produto!");
         }
     }//GEN-LAST:event_jMIFinalizarVendaActionPerformed
 
@@ -530,24 +533,26 @@ public class ViewPDV extends javax.swing.JFrame {
         if (controllerVendasProdutos.salvarVendasProdutosController(listaModelVendasProdutoses)) {
             //Alterar estoque de produtos;
             controllerProdutos.atualizarEstoqueProdutoController(listaModelProdutos);
-            JOptionPane.showMessageDialog(this, "Produtos da venda  Salvo(s)!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
+            //  JOptionPane.showMessageDialog(this, "Produtos da venda  Salvo(s)!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
             limparTela();
 
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao salvar produto da  venda", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     /**
      * Efetua limpeza da tela após finalizar venda
      */
-    private void limparTela(){
+    private void limparTela() {
         jTFValorBruto.setText("");
-        DefaultTableModel modelo = (DefaultTableModel)jTbProdutoPDV.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) jTbProdutoPDV.getModel();
         modelo.setRowCount(0);
+        jLStatus.setText("Caixa Livre");
     }
 
     private void pegarConteudo(java.awt.event.KeyEvent e) {
+        jLStatus.setText("Aberto");
         DefaultTableModel modelo = (DefaultTableModel) jTbProdutoPDV.getModel();
         if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
             try {
@@ -621,6 +626,7 @@ public class ViewPDV extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLExcluir;
     private javax.swing.JLabel jLOperador;
+    private javax.swing.JLabel jLStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -632,7 +638,6 @@ public class ViewPDV extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMIFinalizarVenda;
     private javax.swing.JMenuItem jMItemAddQuantidade;

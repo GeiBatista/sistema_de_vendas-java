@@ -324,7 +324,7 @@ public class ViewCliente extends javax.swing.JFrame {
         jTFNome.setText(modelCliente.getCliNome());
         jTFEndereco.setText(modelCliente.getCliEndereco());
         jTFBairro.setText(modelCliente.getCliBairro());
-        jTFCidade.setText(modelCliente.getCliBairro());
+        jTFCidade.setText(modelCliente.getCliCidade());
         jCBEstados.setSelectedItem(modelCliente.getCliUf());
         jTFCep.setText(modelCliente.getCliCep());
         jTFTelefone.setText(modelCliente.getCliTelefone());

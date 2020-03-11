@@ -61,6 +61,12 @@ public class ViewLogin extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Usuário:");
 
+        jTFUsuarioLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFUsuarioLoginActionPerformed(evt);
+            }
+        });
+
         jPSWSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPSWSenhaActionPerformed(evt);
@@ -163,11 +169,21 @@ public class ViewLogin extends javax.swing.JFrame {
 
     private void jPSWSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPSWSenhaActionPerformed
         // TODO add your handling code here:
+        entrar();
     }//GEN-LAST:event_jPSWSenhaActionPerformed
 
     private void jBtEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEntrarActionPerformed
         // TODO add your handling code here:
-        modelUsuario.setUsuLogin(jTFUsuarioLogin.getText());
+      entrar();
+    }//GEN-LAST:event_jBtEntrarActionPerformed
+
+    private void jTFUsuarioLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFUsuarioLoginActionPerformed
+        // TODO add your handling code here:
+        jPSWSenha.requestFocus();
+    }//GEN-LAST:event_jTFUsuarioLoginActionPerformed
+
+    private void entrar(){
+          modelUsuario.setUsuLogin(jTFUsuarioLogin.getText());
         modelUsuario.setUsuSenha(String.valueOf(jPSWSenha.getPassword()));  
         
         if(controllerUsuario.getValidarUsuarioController(modelUsuario)) {
@@ -179,8 +195,7 @@ public class ViewLogin extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(this, "Usuário/Senha inválida!", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jBtEntrarActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */
