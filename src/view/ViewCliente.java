@@ -66,6 +66,7 @@ public class ViewCliente extends javax.swing.JFrame {
         jBAlterar = new javax.swing.JButton();
         jBSalvar = new javax.swing.JButton();
         jBtExcluir = new javax.swing.JButton();
+        jBtRelatorioCliente = new javax.swing.JButton();
         jTFCep = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -166,6 +167,13 @@ public class ViewCliente extends javax.swing.JFrame {
             }
         });
 
+        jBtRelatorioCliente.setText("Imprimir");
+        jBtRelatorioCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtRelatorioClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPBotoesClienteLayout = new javax.swing.GroupLayout(jPBotoesCliente);
         jPBotoesCliente.setLayout(jPBotoesClienteLayout);
         jPBotoesClienteLayout.setHorizontalGroup(
@@ -178,6 +186,8 @@ public class ViewCliente extends javax.swing.JFrame {
                 .addComponent(jBAlterar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtRelatorioCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBSalvar))
         );
@@ -190,7 +200,8 @@ public class ViewCliente extends javax.swing.JFrame {
                     .addComponent(jBNovo)
                     .addComponent(jBAlterar)
                     .addComponent(jBSalvar)
-                    .addComponent(jBtExcluir))
+                    .addComponent(jBtExcluir)
+                    .addComponent(jBtRelatorioCliente))
                 .addContainerGap())
         );
 
@@ -389,6 +400,11 @@ public class ViewCliente extends javax.swing.JFrame {
         salvarAlterar = "salvar";
     }//GEN-LAST:event_jBNovoActionPerformed
 
+    private void jBtRelatorioClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioClienteActionPerformed
+        // TODO add your handling code here:
+        controllerCliente.gerarRelatorioCliente();
+    }//GEN-LAST:event_jBtRelatorioClienteActionPerformed
+
     // Habilita ou desabilita campo e botoes
     private void desabilitaHabilitaCampos(boolean condicao) {
         jTFNome.setEnabled(condicao);
@@ -467,6 +483,7 @@ public class ViewCliente extends javax.swing.JFrame {
     private javax.swing.JButton jBNovo;
     private javax.swing.JButton jBSalvar;
     private javax.swing.JButton jBtExcluir;
+    private javax.swing.JButton jBtRelatorioCliente;
     private javax.swing.JComboBox<String> jCBEstados;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
