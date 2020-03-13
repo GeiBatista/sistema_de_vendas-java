@@ -46,7 +46,7 @@ public class ViewLogin extends javax.swing.JFrame {
         jBtEntrar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         uJPanelImagem1.setImagem(new java.io.File("D:\\Imagens\\Fundos de Tela\\porDoSol.jpg"));
 
