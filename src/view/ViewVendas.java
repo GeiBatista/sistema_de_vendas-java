@@ -104,6 +104,7 @@ public class ViewVendas extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jBtExcluir = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
+        jBtImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Vendas");
@@ -431,6 +432,13 @@ public class ViewVendas extends javax.swing.JFrame {
             }
         });
 
+        jBtImprimir.setText("Imprimir");
+        jBtImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtImprimirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -439,7 +447,8 @@ public class ViewVendas extends javax.swing.JFrame {
                 .addComponent(jBtExcluir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAlterar)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,7 +456,8 @@ public class ViewVendas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtExcluir)
-                    .addComponent(jBtAlterar))
+                    .addComponent(jBtAlterar)
+                    .addComponent(jBtImprimir))
                 .addContainerGap())
         );
 
@@ -760,6 +770,14 @@ public class ViewVendas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_uJCBNomeDoClientePopupMenuWillBecomeInvisible
 
+    private void jBtImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImprimirActionPerformed
+        // TODO add your handling code here:
+        int linha =  jTbVendas.getSelectedRow();
+        int codigoVenda = (int)  jTbVendas.getValueAt(linha,  0);
+        
+        controllerVendas.gerarRelatorioVenda(codigoVenda);
+    }//GEN-LAST:event_jBtImprimirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -882,6 +900,7 @@ public class ViewVendas extends javax.swing.JFrame {
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtExcluir;
+    private javax.swing.JButton jBtImprimir;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtPesquisar;
     private javax.swing.JButton jBtRemover;
