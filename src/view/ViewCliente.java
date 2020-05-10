@@ -470,6 +470,8 @@ public class ViewCliente extends javax.swing.JFrame {
         if (controllerCliente.excluirClienteController(codigoCliente)) {
             JOptionPane.showMessageDialog(this, "Registro Excluido com sucesso!", "SUCESSO", JOptionPane.WARNING_MESSAGE);
             this.carregarCliente();
+             this.desabilitaHabilitaCampos(false);
+             jBtNovo.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao Excluir o registro!", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
@@ -542,6 +544,8 @@ public class ViewCliente extends javax.swing.JFrame {
         jTFCidade.setText(" ");
         jTFCep.setText(" ");
         jTFTelefone.setText(" ");
+        jTFPesquisar.setText(" ");
+        jTFCodigo.setText(" ");
     }
 
     private void carregarCliente() {
