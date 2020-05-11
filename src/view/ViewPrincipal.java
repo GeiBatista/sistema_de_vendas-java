@@ -61,6 +61,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 0, 0));
 
         jBtClientes.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jBtClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens32x32/Clientes-32.png"))); // NOI18N
         jBtClientes.setText("Clientes");
         jBtClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,6 +70,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
 
         jBtProdutos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jBtProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens32x32/Produtos-32.png"))); // NOI18N
         jBtProdutos.setText("Produtos");
         jBtProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,6 +79,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
 
         jBtVendas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jBtVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens32x32/imagens32x32.png"))); // NOI18N
         jBtVendas.setText("Vendas");
         jBtVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +88,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
 
         jBtUsuarios.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jBtUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens32x32/Usuario-32.png"))); // NOI18N
         jBtUsuarios.setText("Usuários");
         jBtUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +97,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
 
         jBtPDV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jBtPDV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens32x32/Venda-32.png"))); // NOI18N
         jBtPDV.setText("PDV");
         jBtPDV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,7 +112,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                    .addComponent(jBtProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtVendas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -184,6 +189,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jMArquivos.setText("Arquivos");
 
         jMISair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMISair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Exit-18.png"))); // NOI18N
         jMISair.setText("Sair");
         jMISair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,6 +202,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jMCadastros.setText("Cadastros");
 
+        jMIClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Clientes18.png"))); // NOI18N
         jMIClientes.setText("Clientes");
         jMIClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,6 +211,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
         jMCadastros.add(jMIClientes);
 
+        jMIProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Produtos18.png"))); // NOI18N
         jMIProdutos.setText("Produtos");
         jMIProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,6 +220,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
         jMCadastros.add(jMIProdutos);
 
+        jMIUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Usuario18.png"))); // NOI18N
         jMIUsuarios.setText("Usuarios");
         jMIUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,6 +233,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jMVendas.setText("Vendas");
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Vendas18.png"))); // NOI18N
         jMenuItem1.setText("Vendas");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
