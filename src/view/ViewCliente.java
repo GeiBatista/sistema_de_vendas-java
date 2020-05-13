@@ -126,7 +126,7 @@ public class ViewCliente extends javax.swing.JFrame {
             }
         });
 
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/new_page-128.png"))); // NOI18N
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/New File-256.png"))); // NOI18N
         jBtNovo.setText("Novo");
         jBtNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
