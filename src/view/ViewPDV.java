@@ -18,6 +18,7 @@ import model.ModelSessaoUsuario;
 import model.ModelVendas;
 import model.ModelVendasProdutos;
 import util.BLDatas;
+import util.BLMascaras;
 
 /**
  *
@@ -37,6 +38,7 @@ public class ViewPDV extends javax.swing.JFrame {
     ModelSessaoUsuario modelSessaoUsuario = new ModelSessaoUsuario();
     int quantidade;
     private ViewPagamentoPDV viewPagamentoPDV;
+    BLMascaras blMascaras = new BLMascaras();
 
     /**
      * Creates new form ViewPDV
@@ -71,12 +73,13 @@ public class ViewPDV extends javax.swing.JFrame {
         uJPanelImagem4 = new componentes.UJPanelImagem();
         jLabel9 = new javax.swing.JLabel();
         jTFValorBruto = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
         jLExcluir = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -103,19 +106,23 @@ public class ViewPDV extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        uJPanelImagem3.setBackground(new java.awt.Color(0, 102, 102));
         uJPanelImagem3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        uJPanelImagem3.setOpaque(true);
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setText("Caixa:");
 
-        jLabel6.setText("01]");
+        jLabel6.setText("01");
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel4.setText("Operador:");
 
         jLOperador.setText("Operador");
+        jLOperador.setToolTipText("");
 
-        jLStatus.setText("jLabel8");
+        jLStatus.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLStatus.setText("Caixa");
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel5.setText("Status:");
@@ -128,18 +135,20 @@ public class ViewPDV extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(uJPanelImagem3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(uJPanelImagem3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6))
+                        .addGroup(uJPanelImagem3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(uJPanelImagem3Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6))
+                            .addGroup(uJPanelImagem3Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(51, Short.MAX_VALUE))
                     .addGroup(uJPanelImagem3Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(uJPanelImagem3Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, 0)
+                        .addComponent(jLOperador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         uJPanelImagem3Layout.setVerticalGroup(
             uJPanelImagem3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,9 +158,9 @@ public class ViewPDV extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel6))
                 .addGap(5, 5, 5)
-                .addGroup(uJPanelImagem3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(uJPanelImagem3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jLOperador))
+                    .addComponent(jLOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addGroup(uJPanelImagem3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -159,7 +168,9 @@ public class ViewPDV extends javax.swing.JFrame {
                 .addGap(5, 5, 5))
         );
 
+        uJPanelImagem4.setBackground(new java.awt.Color(0, 102, 102));
         uJPanelImagem4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        uJPanelImagem4.setOpaque(true);
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -175,52 +186,43 @@ public class ViewPDV extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Comandos");
-
-        jLabel11.setText("F3 Quantidade");
-
-        jLabel12.setText("F4 Finalizar Venda");
-
-        jLabel13.setText("F5 Pesquisar Produtos");
-
-        jLabel14.setText("F6 Sair");
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLExcluir.setText("F2 Excluir");
 
-        javax.swing.GroupLayout uJPanelImagem4Layout = new javax.swing.GroupLayout(uJPanelImagem4);
-        uJPanelImagem4.setLayout(uJPanelImagem4Layout);
-        uJPanelImagem4Layout.setHorizontalGroup(
-            uJPanelImagem4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(uJPanelImagem4Layout.createSequentialGroup()
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(uJPanelImagem4Layout.createSequentialGroup()
+        jLabel11.setText("F3 Quantidade");
+
+        jLabel14.setText("F6 Sair");
+
+        jLabel13.setText("F5 Pesquisar Produtos");
+
+        jLabel12.setText("F4 Finalizar Venda");
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Comandos");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(uJPanelImagem4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTFValorBruto)
-                    .addGroup(uJPanelImagem4Layout.createSequentialGroup()
-                        .addGroup(uJPanelImagem4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel14)
-                            .addComponent(jLExcluir))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14)
+                    .addComponent(jLExcluir)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        uJPanelImagem4Layout.setVerticalGroup(
-            uJPanelImagem4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(uJPanelImagem4Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFValorBruto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jLExcluir)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel11)
@@ -230,7 +232,31 @@ public class ViewPDV extends javax.swing.JFrame {
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout uJPanelImagem4Layout = new javax.swing.GroupLayout(uJPanelImagem4);
+        uJPanelImagem4.setLayout(uJPanelImagem4Layout);
+        uJPanelImagem4Layout.setHorizontalGroup(
+            uJPanelImagem4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(uJPanelImagem4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(uJPanelImagem4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTFValorBruto)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        uJPanelImagem4Layout.setVerticalGroup(
+            uJPanelImagem4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(uJPanelImagem4Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTFValorBruto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -324,9 +350,9 @@ public class ViewPDV extends javax.swing.JFrame {
             jTbProdutoPDV.getColumnModel().getColumn(1).setMinWidth(50);
             jTbProdutoPDV.getColumnModel().getColumn(1).setPreferredWidth(50);
             jTbProdutoPDV.getColumnModel().getColumn(1).setMaxWidth(50);
-            jTbProdutoPDV.getColumnModel().getColumn(3).setMinWidth(50);
-            jTbProdutoPDV.getColumnModel().getColumn(3).setPreferredWidth(50);
-            jTbProdutoPDV.getColumnModel().getColumn(3).setMaxWidth(50);
+            jTbProdutoPDV.getColumnModel().getColumn(3).setMinWidth(75);
+            jTbProdutoPDV.getColumnModel().getColumn(3).setPreferredWidth(75);
+            jTbProdutoPDV.getColumnModel().getColumn(3).setMaxWidth(75);
             jTbProdutoPDV.getColumnModel().getColumn(4).setMinWidth(80);
             jTbProdutoPDV.getColumnModel().getColumn(4).setPreferredWidth(80);
             jTbProdutoPDV.getColumnModel().getColumn(4).setMaxWidth(80);
@@ -339,6 +365,11 @@ public class ViewPDV extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jTfCodigoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        jTfCodigoProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTfCodigoProdutoActionPerformed(evt);
+            }
+        });
         jTfCodigoProduto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTfCodigoProdutoKeyPressed(evt);
@@ -369,7 +400,7 @@ public class ViewPDV extends javax.swing.JFrame {
             .addGroup(uJPanelImagem1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(uJPanelImagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(6, 6, 6)
@@ -384,7 +415,7 @@ public class ViewPDV extends javax.swing.JFrame {
                     .addGroup(uJPanelImagem1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -482,6 +513,8 @@ public class ViewPDV extends javax.swing.JFrame {
             System.out.println(viewPagamentoPDV.getFormaPagamento());
             if (viewPagamentoPDV.isPago()) {
                 salvarVenda();
+            } else {
+                JOptionPane.showMessageDialog(this, "Pagamento cancelado!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(jMenu1, "Você deve incluir um produto!");
@@ -528,6 +561,10 @@ public class ViewPDV extends javax.swing.JFrame {
         pegarConteudo(evt);
     }//GEN-LAST:event_jTfCodigoProdutoKeyPressed
 
+    private void jTfCodigoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTfCodigoProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTfCodigoProdutoActionPerformed
+
     private void salvarVenda() {
         int cont;
         int codigoProduto = 0, codigoVenda = 0;
@@ -541,7 +578,7 @@ public class ViewPDV extends javax.swing.JFrame {
 
         modelVendas.setVenValorBruto(Double.parseDouble(jTFValorBruto.getText()));
         modelVendas.setVenDesconto(viewPagamentoPDV.getDesconto());
-        modelVendas.setVenValorLiquido(viewPagamentoPDV.getValorTotal());
+        modelVendas.setVenValorLiquido(blMascaras.arredondamentoComPontoDuasCasas(viewPagamentoPDV.getValorTotal()));
 
         //Salvar venda;
         codigoVenda = controllerVendas.salvarVendasController(modelVendas);
@@ -591,17 +628,24 @@ public class ViewPDV extends javax.swing.JFrame {
         if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
             try {
                 modelProdutos = controllerProdutos.getProdutoController(Integer.parseInt(jTfCodigoProduto.getText()));
+          if(modelProdutos.getIdProduto() > 0){
                 modelo.addRow(new Object[]{
-                    modelo.getRowCount() + 1,
+                    modelo.getRowCount()+1,
                     modelProdutos.getIdProduto(),
                     modelProdutos.getProNome(),
                     quantidade,
                     modelProdutos.getProValor(),
                     modelProdutos.getProValor() * quantidade
+                        
                 });
                 jTFValorBruto.setText(String.valueOf(somaValorTotal()));
                 jTfCodigoProduto.setText("");
                 quantidade = 1;
+          }else{
+              JOptionPane.showMessageDialog(this, "Código " +jTfCodigoProduto.getText() + " não está cadastrado!","ATENÇÃO!", JOptionPane.WARNING_MESSAGE);
+              jTfCodigoProduto.setText("");
+          }
+                
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Informe o número do produto", "ERRO", JOptionPane.ERROR_MESSAGE);
             }
@@ -655,6 +699,7 @@ public class ViewPDV extends javax.swing.JFrame {
 
     private void setarOperador() {
         jLOperador.setText(modelSessaoUsuario.nome);
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -686,6 +731,7 @@ public class ViewPDV extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFValorBruto;
     private javax.swing.JTable jTbProdutoPDV;

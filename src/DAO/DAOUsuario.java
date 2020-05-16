@@ -94,8 +94,8 @@ public class DAOUsuario extends ConexaoMySql {
                     + " FROM"
                     + " tbl_usuario"
                     + " WHERE"
-                    + " usu_login = '" + pLogin + "'"
-                    + ";"
+                    + " usu_login = ' "+ pLogin +" ' "
+                   + ";"
             );
 
             while (this.getResultSet().next()) {

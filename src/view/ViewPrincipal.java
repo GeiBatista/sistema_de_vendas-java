@@ -6,12 +6,17 @@
 package view;
 
 import javax.swing.JFrame;
+import model.ModelSessaoUsuario;
+import util.BLDatas;
 
 /**
  *
  * @author geiba
  */
 public class ViewPrincipal extends javax.swing.JFrame {
+    
+     ModelSessaoUsuario modelSessaoUsuario = new ModelSessaoUsuario();
+     BLDatas dataHora = new BLDatas();
 
     /**
      * Creates new form ViewPrincipal
@@ -19,6 +24,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
     public ViewPrincipal() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setarOperador();
+        setarDataHora();
        // setLocationRelativeTo(null);
     }
 
@@ -40,9 +47,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jBtPDV = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelUsuarioLogado = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabelDataHora = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMArquivos = new javax.swing.JMenu();
         jMISair = new javax.swing.JMenuItem();
@@ -132,7 +139,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addComponent(jBtUsuarios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPDV)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtClientes, jBtPDV, jBtProdutos, jBtUsuarios, jBtVendas});
@@ -155,36 +162,21 @@ public class ViewPrincipal extends javax.swing.JFrame {
         );
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Logado como:");
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel1.setText("Usuário Logado:");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
+        jLabelUsuarioLogado.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(jLabelUsuarioLogado, new org.netbeans.lib.awtextra.AbsoluteConstraints(103, 12, 196, 12));
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel3.setText("Data/Hora de login:");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, -1, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(181, 181, 181)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 15, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+        jLabelDataHora.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(jLabelDataHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 12, 135, 12));
 
         jMArquivos.setText("Arquivos");
 
@@ -262,7 +254,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(uJPanelImagem1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -352,6 +345,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void setarOperador() {
+        jLabelUsuarioLogado.setText(modelSessaoUsuario.nome);       
+    }
+    
+    private void setarDataHora(){
+        jLabelDataHora.setText(dataHora.retornarDataHora());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtClientes;
@@ -360,9 +361,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jBtUsuarios;
     private javax.swing.JButton jBtVendas;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelDataHora;
+    private javax.swing.JLabel jLabelUsuarioLogado;
     private javax.swing.JMenu jMArquivos;
     private javax.swing.JMenu jMCadastros;
     private javax.swing.JMenuItem jMIClientes;
