@@ -785,10 +785,23 @@ public class ViewVendas extends javax.swing.JFrame {
 
     private void jBtImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImprimirActionPerformed
         // TODO add your handling code here:
-        int linha =  jTbVendas.getSelectedRow();
-        int codigoVenda = (int)  jTbVendas.getValueAt(linha,  0);
-        
-        controllerVendas.gerarRelatorioVenda(codigoVenda);
+        int linha = jTbVendas.getSelectedRow();
+        int codigoVenda = (int) jTbVendas.getValueAt(linha, 0);
+        final ViewAguarde carregando = new ViewAguarde();
+        carregando.setVisible(true);
+        Thread t = new Thread() {
+
+            public void run() {
+                //método de imprimir
+                try {
+                    controllerVendas.gerarRelatorioVenda(codigoVenda);
+                    carregando.dispose();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Erro ao gerar relatório! /n " + e, "ERRO", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        };
+        t.start();
     }//GEN-LAST:event_jBtImprimirActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed

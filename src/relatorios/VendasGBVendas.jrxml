@@ -73,27 +73,27 @@ FROM
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="84" splitType="Stretch">
 			<staticText>
-				<reportElement style="TituloVermelho" x="0" y="1" width="39" height="40" uuid="4a53b9df-46d7-432b-a01c-c3f3a22f6417"/>
+				<reportElement style="TituloVermelho" x="49" y="1" width="39" height="45" uuid="4a53b9df-46d7-432b-a01c-c3f3a22f6417"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[GB]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Marca" x="39" y="1" width="139" height="40" uuid="4dbae2c5-56bc-45e2-a47d-ca5cd2cbd29a"/>
+				<reportElement style="Marca" x="88" y="1" width="139" height="45" uuid="4dbae2c5-56bc-45e2-a47d-ca5cd2cbd29a"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Vendas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="41" width="334" height="20" uuid="998347f5-8262-4222-b554-1e7be7fc06a2"/>
-				<textElement>
+				<reportElement x="0" y="46" width="334" height="20" forecolor="#990000" uuid="998347f5-8262-4222-b554-1e7be7fc06a2"/>
+				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Rua: Humberto Porto, 193 São Marcos, Salvador - BA CEP: 41250-575]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="59" width="334" height="20" uuid="cc420094-e1c8-41e1-b723-4f42c6dba0b5"/>
-				<textElement>
+				<reportElement x="0" y="64" width="334" height="20" forecolor="#990000" uuid="cc420094-e1c8-41e1-b723-4f42c6dba0b5"/>
+				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Telefone: (71) 3042-6140 / Celular: 98140-6141]]></text>
@@ -103,19 +103,23 @@ FROM
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="413" y="28" width="111" height="20" forecolor="#999999" uuid="a119ed32-0281-4020-b26c-6f5772353b24"/>
+				<reportElement x="413" y="33" width="111" height="20" forecolor="#999999" uuid="a119ed32-0281-4020-b26c-6f5772353b24"/>
 				<textElement>
 					<font fontName="Serif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pedido de venda Nº:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="415" y="53" width="109" height="20" uuid="2b5dd90b-deed-4939-b332-2e19bd5a4e7f"/>
+				<reportElement x="413" y="53" width="109" height="20" uuid="2b5dd90b-deed-4939-b332-2e19bd5a4e7f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="15" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tbl_vendas_pk_id_vendas}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="1" y="1" width="61" height="45" uuid="c98cbfb7-435f-4234-8310-19d575d4cbba"/>
+				<imageExpression><![CDATA["D:\\Documentos\\Netbeans\\VendasGBS\\src\\imagens60x60\\MrBartistaVermelha64.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -275,7 +279,7 @@ FROM
 			<textField>
 				<reportElement x="497" y="0" width="58" height="20" uuid="6da1061b-7474-4209-9c50-695a9a66dba8"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{tbl_vendas_ven_valor_bruto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tbl_vendas_produtos_ven_pro_valor} * $F{tbl_vendas_produtos_ven_pro_quantidade}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -331,9 +335,21 @@ FROM
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="403" y="0" width="152" height="20" uuid="a4b0db09-02b1-430b-a0ad-bf9692d12600"/>
+				<reportElement x="423" y="0" width="132" height="20" uuid="a4b0db09-02b1-430b-a0ad-bf9692d12600"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{tbl_vendas_produtos_ven_pro_valor_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="424" y="20" width="131" height="20" uuid="e910066e-a149-4524-923a-c172842be718"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tbl_vendas_ven_desconto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="424" y="41" width="131" height="20" uuid="056590bb-4759-4b14-a63a-39ce96d540a5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbl_vendas_ven_valor_bruto}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

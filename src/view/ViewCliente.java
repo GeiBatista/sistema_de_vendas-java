@@ -158,6 +158,7 @@ public class ViewCliente extends javax.swing.JFrame {
             }
         });
 
+        jBtRelatorioCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/magens18X18/Printer-18x18.png"))); // NOI18N
         jBtRelatorioCliente.setText("Imprimir");
         jBtRelatorioCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
