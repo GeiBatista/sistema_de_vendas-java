@@ -807,6 +807,7 @@ public class ViewVendas extends javax.swing.JFrame {
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         desabilitaHabilitaCampos(false);
         limparFormulario();
+        jBtNovo.setEnabled(true);
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jTbVendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTbVendasMouseClicked

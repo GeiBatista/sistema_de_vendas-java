@@ -337,7 +337,7 @@ FROM
 			<textField>
 				<reportElement x="423" y="0" width="132" height="20" uuid="a4b0db09-02b1-430b-a0ad-bf9692d12600"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{tbl_vendas_produtos_ven_pro_valor_1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tbl_vendas_ven_valor_liquido}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="424" y="20" width="131" height="20" uuid="e910066e-a149-4524-923a-c172842be718"/>
